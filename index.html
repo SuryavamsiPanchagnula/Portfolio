@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -304,9 +305,29 @@
                 id="message"
               ></textarea>
             </div>
-            <button type="submit" class="btn btn--theme contact__btn">
+            <button type="submit" class="btn btn--theme contact__btn" onclick="sendEmail()">
               Submit
             </button>
+            <script>
+              (function() {
+                  emailjs.init("your_emailjs_user_id"); // Replace with your EmailJS User ID
+              })();
+          
+              function sendEmail() {
+                  const templateParams = {
+                      name: document.getElementById("name").value,
+                      email: document.getElementById("email").value,
+                      message: document.getElementById("message").value
+                  };
+          
+                  emailjs.send('your_service_id', 'your_template_id', templateParams)
+                  .then(function(response) {
+                      alert('Email sent successfully!');
+                  }, function(error) {
+                      alert('Failed to send email.');
+                  });
+              }
+          </script>
           </form>
         </div>
       </div>
